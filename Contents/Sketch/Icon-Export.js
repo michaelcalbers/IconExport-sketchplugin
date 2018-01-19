@@ -1,54 +1,61 @@
 @import 'common.js'
 
 var onRun = function(context) {
-  //reference the sketch document
+  // reference the sketch document
   var doc = context.document;
-  //reference the pages array in the document
+  // reference the pages array in the document
   var pages = [doc pages];
-  //create a variable to hold how many layers exist
-//  var layerCount = 0;
-  //create a variable to hold how many symbol layers exist
-//  var symbolCount = 0;
+  // create a variable to hold how many artboards/icons to export
+  var iconCount = 0;
+  // We can specify a lot of different options for the exporting.
+  var exportOptions_PNG = { "scales" : "1, 2, 3", "formats" : "png" }
+  var exportOptions_SVG = { "formats" : "svg" }
 
-  //loop through the pages array
+  // loop through the pages array
   for (var p = 0; p < pages.count(); p++){
-    //reference each page
+    // reference each page
     var page = pages[p];
-    //get the name of the page
+    // get the name of the page
     var pageName = [page name];
-    //reference the artboards array of each page
+    // reference the artboards array of each page
     var artboards = [page artboards];
-    log(pageName);
-    //If it's the Icons page, log it in the console
+    // If it's the Icons page, log it in the console
     if (pageName == "Icons") { // type coersion expected/needed
-      log("      Yes! It is " + pageName);
-    }
+      log("Found " + pageName + " page.");
 
-    //loop through the artboards of each page
-//    for (var a = 0; a < artboards.count(); a++){
-      //reference each artboard of each page
-//      var artboard = artboards[a];
-      //reference the layers array of each artboard
-//      var layers = [artboard layers];
+      // loop through the artboards of the Icons page
+      for (var a = 0; a < artboards.count(); a++){
+        // reference each artboard of each page
+        var artboard = artboards[a];
+        // get the artboard's name
+        var artboardName = [artboard name];
+        // log the artboard's name
+        log("  " + artboardName);
+        // export
+        artboard.export(exportOptions_PNG);
+//        artboard.export(exportOptions_SVG);
 
-      //loop through the layers array
-//      for(var l = 0; l < layers.count(); l++){
-        // increment symbol count
-//        layerCount = layerCount + 1;
-        //reference each layer of each artboard
-//        var layer = layers[l];
+        // increment the icon count
+        iconCount = iconCount + 1;
 
-        //check to see if the layer is a Symbol
-//        if(layer.class() == "MSSymbolInstance"){
+        //reference the layers array of each artboard
+        var layers = [artboard layers];
 
-          // increment symbol count
-//          symbolCount = symbolCount + 1;
+        //loop through the layers array
+        for(var l = 0; l < layers.count(); l++){
+          //reference each layer of each artboard
+          var layer = layers[l];
 
-//          }
-//        }
-//      }
-    }
-//    var alertMessage = symbolCount + " symbols & " + layerCount + " layers";
-//    var alertMessage = symbolCount + " symbols";
-//    alert("Symbol & Layer Count", alertMessage);
+          //check to see if the layer is NOT a Symbol
+          if(layer.class() != "MSSymbolInstance"){
+            // log the artboard's name
+            log("     " + layer);
+
+          } // if Symbol
+        } // for Layers
+      } // for Artboards
+    } // if Icons page
+  } // for Pages
+//  var alertMessage = iconCount + " icons exported.";
+//  alert("Icon Export", alertMessage);
 }
