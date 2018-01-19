@@ -1,0 +1,18 @@
+{
+    "name" : "Icon Export",
+    "identifier" : "michaelcalbers.iconExport",
+    "version" : "0.0.4",
+    "description" : "Find the Icons page and export the icons found there.",
+    "authorEmail" : "michael.c.albers@gmail.com",
+    "author" : "Michael C. Albers",
+
+    "commands" : [
+    {
+      "script" : "Icon-Export.js",
+      "handler" : "onRun",
+      "shortcut" : "command shift y",
+      "name" : "Export!",
+      "identifier" : "michaelcalbers.plugin.icon-export"
+    }
+  ],
+}
